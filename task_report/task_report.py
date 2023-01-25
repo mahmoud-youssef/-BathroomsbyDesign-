@@ -30,7 +30,6 @@ def hashable(key):
 class ImBus(osv.Model):
     _inherit = 'project.task'
 
-
     @api.multi
     @api.depends('open_tasks','stage_id')
     def _compute_open_tasks(self):

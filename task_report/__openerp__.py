@@ -1,14 +1,13 @@
 {
-    'name' : 'IM Bus',
+    'name' : 'Bathrooms by Design Test',
     'version': '1.0',
-    'author': 'OpenERP SA',
+    'author': 'Mahmoud-El-Badry <mahmoudelbadry1994@gmail.com>',
     'category': 'Hidden',
     'complexity': 'easy',
-    'description': "Instant Messaging Bus allow you to send messages to users, in live.",
+    'description': "Bathrooms by Design Test",
     'depends': ['base', 'web','project'],
     'data': [
         'views/task_report.xml',
-        # 'security/ir.model.access.csv',
     ],
     'installable': True,
     'auto_install': True,

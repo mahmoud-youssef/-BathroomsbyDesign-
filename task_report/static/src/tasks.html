@@ -220,7 +220,7 @@
 		  			console.log(response);
 					//loop through json array
 					$(response.results.message).each(function(index, value) {
-						var projects = "<tr><td><img src='data:image/png;base64, " + value.image +"' alt=''><span class='popup' onClick='javascript:window.open("+'"/task_report/static/src/tasks_details.html?id='+value.user_id+'"'+", "+'"_blank"'+","+'"toolbar=no,width=250,height=250"'+");'>"+ value.name +"</a></td><td></td><td></td><td></td><td></td><td></td></tr>";
+						var projects = "<tr><td><img src='data:image/png;base64, " + value.image +"' alt=''><span class='popup' onClick='javascript:window.open("+'"/task_report/static/src/tasks_details.html?id='+value.user_id+'"'+", "+'"_blank"'+","+'"toolbar=no,width=900,height=800"'+");'>"+ value.name +"</a></td><td></td><td></td><td></td><td></td><td></td></tr>";
 						$(value.projects).each(function(index, project) {
 							projects += "<tr><td></td><td>" + project.name + "</td><td>" + project.open_tasks + "</td><td>" + project.delay_tasks + "</td><td>" + project.current_month_finished_tasks + "</td><td>" + project.past_week_finished_tasks + "</td></tr>";
 				   		});

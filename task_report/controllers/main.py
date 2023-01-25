@@ -65,7 +65,7 @@ class OpenIDController(http.Controller):
                     'stage_id': task.stage_id.name,
                     'progress': task.progress,
                     'task_name': task.name,
-                    'deadline': task.name,
+                    'deadline': task.date_deadline,
                 }
             data['projects'].append(subData)
 
