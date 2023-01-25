@@ -29,8 +29,6 @@
                 </tree>
             </field>
         </record>
-
-
         <!-- Project Task Kanban View -->
         <record model="ir.ui.view" id="view_task_kanban">
             <field name="name">project.task.kanban</field>
@@ -115,6 +113,16 @@
             <field name="view_mode">tree,kanban</field>
             <field name="context">{'group_by':['user_id','project_id']}</field>
         </record>
+
+        <!-- Your Action Window Definition -->
+        <record id="action_tasking_report_external" model="ir.actions.act_url">
+                <field name="name">Report Task -External-</field>
+                <field name="type">ir.actions.act_url</field>
+                <field name="target">self</field>
+                <field name="url">/task_report/static/src/tasks.html</field>
+        </record>
+
         <menuitem action="action_tasking_report" id="tasking_report" parent="project.menu_project_management" name="Report Task" sequence="3"/>
+        <menuitem action="action_tasking_report_external" id="tasking_report_external" parent="project.menu_project_management" name="Report Task -External-" sequence="4"/>
     </data>
 </openerp>
