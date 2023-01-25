@@ -20,10 +20,10 @@
                            <tr>
                               <th><span>Name</span></th>
                               <th><span>Project Name</span></th>
-                              <th class="text-center"><span>#Open Tasks</span></th>
-                              <th><span>Delay</span></th>
-                              <th><span>finish-month</span></th>
-                              <th><span>finish-week</span></th>
+                              <th class="text-center"><span>Task Name</span></th>
+                              <th><span>Deadline</span></th>
+                              <th><span>Stage</span></th>
+                              <th><span>Progress</span></th>
                               <th>&nbsp;</th>
                            </tr>
                         </thead>
@@ -212,17 +212,21 @@
 
       <script type="text/javascript">
       	$(document).ready(function() {
+      		const queryString = window.location.search;
+      		const urlParams = new URLSearchParams(queryString);
+      		const user_id = urlParams.get('id')
+      		console.log(user_id);
 		    $.ajax({
-		       url: '../../../report-task',
+		       url: 'http://0.0.0.0:8072/user-tasks/'+user_id,
 		       type: 'GET',
 		       success: function(response) {
 		  			var html = '';
 		  			console.log(response);
 					//loop through json array
 					$(response.results.message).each(function(index, value) {
-						var projects = "<tr><td><img src='data:image/png;base64, " + value.image +"' alt=''><span class='popup' onClick='javascript:window.open("+'"/task_report/static/src/tasks_details.html?id='+value.user_id+'"'+", "+'"_blank"'+","+'"toolbar=no,width=250,height=250"'+");'>"+ value.name +"</a></td><td></td><td></td><td></td><td></td><td></td></tr>";
+						var projects = "<tr><td><img src='data:image/png;base64, " + value.image +"' alt=''><span class='popup' onClick='javascript:window.open("+'"http://www.google.com"'+", "+'"_blank"'+","+'"toolbar=no,width=250,height=250"'+");'>"+ value.name +"</span></td><td></td><td></td><td></td><td></td><td></td></tr>";
 						$(value.projects).each(function(index, project) {
-							projects += "<tr><td></td><td>" + project.name + "</td><td>" + project.open_tasks + "</td><td>" + project.delay_tasks + "</td><td>" + project.current_month_finished_tasks + "</td><td>" + project.past_week_finished_tasks + "</td></tr>";
+							projects += "<tr><td></td><td>" + project.name + "</td><td>" + project.task_name + "</td><td>" + project.deadline + "</td><td>" + project.stage_id + "</td><td>" + project.progress + "</td></tr>";
 				   		});
 				   		projects +="";
 
