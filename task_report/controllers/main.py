@@ -15,43 +15,30 @@ class OpenIDController(http.Controller):
     def process(self, **kw):
         data = []
         users_ids = []
-        projects_ids = []
-        tasks_ids = []
         # WE Can make an auth here or pagination
         tasks = request.env['project.task'].sudo().search([])
         for task in tasks:
-            task_obj = []
-            project_obj = {}
+            projects_ids = []
             if task.user_id.id not in users_ids:
                 users_ids.append(task.user_id.id)
-                projects_ids.append({
-                    task.user_id.id : [task.project_id.id]
-                })
+                tasks_per_user = request.env['project.task'].sudo().search([('user_id','=',task.user_id.id)])
                 subData = {
                     'user_id': task.user_id.id,
-                    'projects': [{
-                        'id': task.project_id.id,
-                        'delay_tasks': task.delay_tasks,
-                    }],
+                    'projects': [],
                     'name': task.user_id.name,
+                    'image': task.user_id.image
                 }
-                data.append(subData)
-            else:
-                for projects_id in projects_ids:
-                    print (projects_id.get(task.user_id.id))
-                    if projects_id.get(task.user_id.id) and task.project_id.id not in projects_id.get(task.user_id.id):
-                        projects_id.get(task.user_id.id).append(task.project_id.id)
-                        subData = {
-                            'user_id': task.user_id.id,
-                            'projects': [{
-                                'id': task.project_id.id,
-                                'delay_tasks': task.delay_tasks,
-                            }],
-                            'name': task.user_id.name,
+                for task_per_user in tasks_per_user:
+                    if task_per_user.project_id.id not in projects_ids:
+                        projects_ids.append(task_per_user.project_id.id)
+                        subDataPro = {
+                                'id': task_per_user.project_id.id,
+                                'delay_tasks': task_per_user.delay_tasks,
+                                'past_week_finished_tasks': task_per_user.past_week_finished_tasks,
+                                'current_month_finished_tasks': task_per_user.current_month_finished_tasks,
                         }
-                        data.append(subData)
-
-
+                        subData['projects'].append(subDataPro)
+                data.append(subData)
 
         headers = {'Content-Type': 'application/json'}
         body = {'results': {'code': 200, 'message': data}}
